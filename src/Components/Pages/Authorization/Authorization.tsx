@@ -1,26 +1,44 @@
 import React from "react";
+import { connect } from "react-redux";
+import { loginRequest } from "../../../store/Auth/auth_action";
 import {
     Button,
     CheckBoxLabel,
     ContainerForm,
     ContainerImg,
+    ErrorInputMessage,
     Footer,
     FooterWrapper,
     Form,
-    FormGroup,
     HelpText,
-    Input,
-    Label,
     SubTitle,
     Title,
     Wrapper,
 } from "./style";
+import Input from "../../input";
+import { Label } from "../../label";
+import { FormGroup } from "../../form_group";
 
 import bg from "../../../assets/img/cod_home_section2-1536x1491 1.png";
 import logo from "../../../assets/img/Logo.svg";
 import logo2 from "../../../assets/img/Logo2.svg";
+import iconMail from "../../../assets/img/iconMail.svg";
+import iconPass from "../../../assets/img/iconPass.svg";
+import { TRootState } from "../../../store/store";
 
-export default function Authorization() {
+type TProps = {
+    loginRequest: typeof loginRequest;
+    errorLogin: string | undefined;
+    errorPassword: string | undefined;
+};
+
+const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPassword }) => {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [checked, setChecked] = React.useState(false);
+
+    const login = () => loginRequest(email, password);
+
     return (
         <>
             <Wrapper>
@@ -36,22 +54,46 @@ export default function Authorization() {
                         slogan
                     </SubTitle>
                     <Form width="466px">
-                        <FormGroup mb="32px">
+                        <FormGroup mb="0px">
                             <Label>E-MAIL</Label>
-                            <Input type="email" placeholder="Type your e-mail" />
+                            <Input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                placeholder="Type your e-mail"
+                                icon={iconMail}
+                                error={!!errorLogin}
+                            />
+                            <ErrorInputMessage>{errorLogin}</ErrorInputMessage>
                         </FormGroup>
 
-                        <FormGroup mb="27px">
+                        <FormGroup mb="0px">
                             <Label>pASSWORD</Label>
-                            <Input type="password" placeholder="Type your password" />
+                            <Input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                                placeholder="Type your password"
+                                icon={iconPass}
+                                error={!!errorPassword}
+                            />
+                            <ErrorInputMessage>{errorPassword}</ErrorInputMessage>
                         </FormGroup>
 
                         <FormGroup mb="35px">
-                            <Input type="checkbox" placeholder="Type your password" id="remember" />
+                            <Input
+                                checked={checked}
+                                onChange={(e) => setChecked(e.target.checked)}
+                                type="checkbox"
+                                placeholder="Type your password"
+                                id="remember"
+                            />
                             <CheckBoxLabel htmlFor="remember">Keep me logged in</CheckBoxLabel>
                         </FormGroup>
 
-                        <Button type="button">Login</Button>
+                        <Button onClick={login} type="button">
+                            Login
+                        </Button>
 
                         <HelpText>
                             Not a member? <span>Request registration.</span>
@@ -68,4 +110,15 @@ export default function Authorization() {
             </Footer>
         </>
     );
-}
+};
+
+const mapStateToProps = (state: TRootState) => ({
+    errorLogin: state.authReducer.errorLogin,
+    errorPassword: state.authReducer.errorPassword,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+    loginRequest: (email: string, password: string) => dispatch(loginRequest(email, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Authorization);

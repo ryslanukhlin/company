@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { InputIconImg } from "../../input";
 
 export const Wrapper = styled.div`
     display: flex;
@@ -39,21 +40,29 @@ export const ContainerForm = styled.div`
     }
 
     @media (max-width: 750px) {
-        img {
+        & > img {
             height: 60px;
             width: 60px;
         }
     }
 
     @media (max-height: 600px) {
-        img {
+        & img {
             height: 50px;
+        }
+
+        ${InputIconImg} {
+            height: auto;
         }
     }
 
     @media (max-height: 350px) {
-        img {
-            margin-top: 30px;
+        & img {
+            margin-top: 80px;
+        }
+
+        ${InputIconImg} {
+            margin-top: 0;
         }
     }
 `;
@@ -114,31 +123,22 @@ export const Form = styled.form<propsForm>`
     }
 `;
 
-type propsFormGroup = {
-    mb?: string;
-};
-
-export const FormGroup = styled.div<propsFormGroup>`
-    margin-bottom: ${(props) => (props.mb ? props.mb : "40px")};
-
-    @media (max-height: 660px) {
-        margin-bottom: 20px;
-    }
-
-    @media (max-height: 400px) {
-        margin-bottom: 10px;
-    }
-`;
-
-export const Label = styled.label`
-    color: #adadad;
-    font-size: 14px;
-    margin-bottom: 8px;
+export const ErrorInputMessage = styled.div`
+    color: #cc1f1f;
     display: block;
-    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 32px;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    min-height: 32px;
+
+    @media (max-width: 430px) {
+        margin-top: 0px;
+    }
 
     @media (max-height: 500px) {
-        font-size: 10px;
+        margin-top: 0px;
+        font-size: 12px;
     }
 `;
 
@@ -161,21 +161,6 @@ export const CheckBoxLabel = styled.label`
     }
 `;
 
-export const Input = styled.input`
-    background: #f0f0f0;
-    border-radius: 16px;
-    border: none;
-    font-size: 18px;
-    line-height: 22px;
-    color: #2d3436;
-    padding: 11px 16px;
-    width: 100%;
-
-    @media (max-height: 500px) {
-        font-size: 12px;
-    }
-`;
-
 export const Button = styled.button`
     border-radius: 16px;
     background: #7db59a;
@@ -187,6 +172,14 @@ export const Button = styled.button`
     border: 0;
     margin-bottom: 16px;
     width: 100%;
+
+    &:hover {
+        background-color: #5b9479;
+    }
+
+    &:active {
+        background-color: #4f896c;
+    }
 
     @media (max-width: 430px) {
         padding: 6px 16px;
@@ -216,7 +209,7 @@ export const Footer = styled.div`
 
 export const FooterWrapper = styled.div`
     padding-top: 16px;
-    margin-left: 60px;
+    margin-left: 30px;
     width: 60px;
     display: flex;
     flex-direction: column;
