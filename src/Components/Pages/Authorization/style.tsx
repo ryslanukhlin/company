@@ -67,50 +67,6 @@ export const ContainerForm = styled.div`
     }
 `;
 
-type propsTitle = {
-    color?: string;
-    fs?: string;
-};
-
-export const Title = styled.h1<propsTitle>`
-    color: ${(props) => (props.color ? props.color : "white")};
-    text-transform: uppercase;
-    font-size: ${(props) => (props.fs ? props.fs : "14px")};
-
-    @media (max-height: 600px) {
-        font-size: 14px;
-    }
-
-    @media (max-width: 750px) {
-        font-size: 16px;
-    }
-`;
-
-type propsSubTitle = {
-    color?: string;
-    mb?: string;
-    fs?: string;
-};
-
-export const SubTitle = styled.h2<propsSubTitle>`
-    color: ${(props) => (props.color ? props.color : "white")};
-    text-transform: uppercase;
-    font-size: ${(props) => (props.fs ? props.fs : "10px")};
-    margin-bottom: ${(props) => (props.mb ? props.mb : "0")};
-
-    @media (max-height: 600px) {
-        margin-bottom: 20px;
-    }
-
-    @media (max-height: 600px) {
-        font-size: 10px;
-    }
-
-    @media (max-width: 750px) {
-        font-size: 12px;
-    }
-`;
-
 type propsForm = {
     width?: string;
 };
@@ -158,39 +114,6 @@ export const CheckBoxLabel = styled.label`
         vertical-align: middle;
         transition: 0.2ms;
         margin-right: 18px;
-    }
-`;
-
-export const Button = styled.button`
-    border-radius: 16px;
-    background: #7db59a;
-    padding: 8px 16px;
-    letter-spacing: 0.25px;
-    color: #fff;
-    font-size: 18px;
-    line-height: 36px;
-    border: 0;
-    margin-bottom: 16px;
-    width: 100%;
-
-    &:hover {
-        background-color: #5b9479;
-    }
-
-    &:active {
-        background-color: #4f896c;
-    }
-
-    @media (max-width: 430px) {
-        padding: 6px 16px;
-    }
-
-    @media (max-height: 500px) {
-        padding: 4px 16px;
-    }
-
-    @media (max-height: 400px) {
-        padding: 0px 16px;
     }
 `;
 

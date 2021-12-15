@@ -26,6 +26,8 @@ export interface ITheme {
     colors: {
         primary: string;
         success: string;
+        danger: string;
+        warning: string;
         bglight: string;
         bgdark: string;
     };
@@ -34,7 +36,9 @@ export interface ITheme {
 export const theme: ITheme = {
     colors: {
         primary: "#6C5CE7",
-        success: "#E84393",
+        success: "#00B894",
+        danger: "#E84393",
+        warning: "#FDCB6E",
         bglight: "#E5E5E5",
         bgdark: "#7DB59A",
     },

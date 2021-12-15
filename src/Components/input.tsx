@@ -1,13 +1,22 @@
 import styled from "styled-components";
+import { HeaderStyle } from "./header";
 
 const InputWrapperStyle = styled.div`
     display: block;
     position: relative;
+
+    ${HeaderStyle} & {
+        @media (max-width: 1300px) {
+            display: none;
+        }
+    }
 `;
 
 type propsInpit = {
     icon?: string;
     error?: boolean;
+    width?: string;
+    mr?: string;
 };
 
 const InputStyle = styled.input<propsInpit>`
@@ -18,7 +27,8 @@ const InputStyle = styled.input<propsInpit>`
     line-height: 22px;
     color: #2d3436;
     padding: 11px 16px;
-    width: 100%;
+    width: ${(props) => (props.width ? props.width : "100%")};
+    margin-right: ${(props) => (props.mr ? props.mr : "0px")};
     outline: none;
     position: relative;
 
@@ -42,6 +52,8 @@ type TInputProps = {
     id?: string;
     icon?: string;
     error?: boolean;
+    width?: string;
+    mr?: string;
 };
 
 const Input: React.FC<TInputProps> = ({ icon, type, error, ...props }) => {

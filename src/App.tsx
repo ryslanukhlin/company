@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./router";
+import UserLayout from "./components/user_layout";
 
 export default function App() {
     return (
@@ -12,7 +13,9 @@ export default function App() {
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
                     <GlobalStyle />
-                    <Router />
+                    <UserLayout>
+                        <Router />
+                    </UserLayout>
                 </ThemeProvider>
             </BrowserRouter>
         </Provider>

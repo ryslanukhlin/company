@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { loginRequest } from "../../../store/Auth/auth_action";
+import { loginRequest } from "../../../store/auth/auth_action";
 import {
-    Button,
     CheckBoxLabel,
     ContainerForm,
     ContainerImg,
@@ -11,20 +10,21 @@ import {
     FooterWrapper,
     Form,
     HelpText,
-    SubTitle,
-    Title,
     Wrapper,
 } from "./style";
 import Input from "../../input";
 import { Label } from "../../label";
 import { FormGroup } from "../../form_group";
+import { Title } from "../../title";
+import { TRootState } from "../../../store/store";
+import { SubTitle } from "../../sub_title";
+import { Button } from "../../button";
 
 import bg from "../../../assets/img/cod_home_section2-1536x1491 1.png";
 import logo from "../../../assets/img/Logo.svg";
 import logo2 from "../../../assets/img/Logo2.svg";
 import iconMail from "../../../assets/img/iconMail.svg";
 import iconPass from "../../../assets/img/iconPass.svg";
-import { TRootState } from "../../../store/store";
 
 type TProps = {
     loginRequest: typeof loginRequest;
@@ -91,7 +91,14 @@ const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPasswo
                             <CheckBoxLabel htmlFor="remember">Keep me logged in</CheckBoxLabel>
                         </FormGroup>
 
-                        <Button onClick={login} type="button">
+                        <Button
+                            fs="18px"
+                            width="466px"
+                            height="52px"
+                            mb="16px"
+                            onClick={login}
+                            type="button"
+                        >
                             Login
                         </Button>
 

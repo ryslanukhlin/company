@@ -10,7 +10,7 @@ import {
 } from "./auth_type";
 
 const authState: TAuthState = {
-    isAuth: false,
+    isAuth: true,
 };
 
 const authReducer = (state: TAuthState = authState, action: TAuthAction): TAuthState => {

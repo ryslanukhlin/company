@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Authorization from "./Components/Pages/Authorization/authorization";
+import Authorization from "./components/pages/authorization/authorization";
+import Home from "./components/pages/home/home";
 import { TRootState } from "./store/store";
 
 type TProps = {
@@ -14,7 +15,7 @@ const router: React.FC<TProps> = ({ isAuth }) => {
             {isAuth ? (
                 <>
                     <Route path="/auth" element={<Navigate to="/" />} />
-                    <Route path="/" element={<h1>зашел</h1>} />
+                    <Route path="/" element={<Home />} />
                 </>
             ) : (
                 <>
