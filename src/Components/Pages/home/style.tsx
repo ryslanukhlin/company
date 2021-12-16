@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 50px;
+
+    @media (max-width: 998px) {
+        margin-bottom: 33px;
+    }
 `;
 
 export const Title = styled.h1`
@@ -13,6 +17,9 @@ export const Title = styled.h1`
     font-size: 36px;
     line-height: 44px;
     color: black;
+    @media (max-width: 998px) {
+        font-size: 24px;
+    }
 `;
 
 export const Table = styled.table`
@@ -54,17 +61,17 @@ type TArrowProps = {
 
 export const ArrowTop = styled.div<TArrowProps>`
     position: absolute;
-    border: 7px solid transparent;
-    border-bottom: 4px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
-    top: -2px;
-    left: calc(100% + 10px);
+    border: 4px solid transparent;
+    border-bottom: 3px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
+    top: 3px;
+    left: calc(100% + 20px);
 `;
 export const ArrowBottom = styled.div<TArrowProps>`
     position: absolute;
-    border: 7px solid transparent;
-    border-top: 4px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
-    top: 14px;
-    left: calc(100% + 10px);
+    border: 4px solid transparent;
+    border-top: 3px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
+    top: 13px;
+    left: calc(100% + 20px);
 `;
 
 export const Td = styled.td`
@@ -129,6 +136,16 @@ export const PaginateArrow = styled.div<PaginateArrowProps>`
     height: 32px;
     margin-right: ${(props) => (props.arrow === "left" ? "8px" : "0")};
 
+    @media (max-width: 400px) {
+        &:first-child {
+            margin-right: 2px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        width: 24px;
+    }
+
     & span:first-child {
         position: absolute;
         display: block;
@@ -165,6 +182,10 @@ export const Paginater = styled.div<TPaginateProps>`
     justify-content: center;
     margin-right: 8px;
     margin-bottom: 18px;
+
+    @media (max-width: 400px) {
+        margin-right: 2px;
+    }
 `;
 
 export const Card = styled.div`
@@ -207,5 +228,11 @@ export const DotsPaginate = styled.div`
     color: rgba(0, 0, 0, 0.25);
     font-size: 14px;
     line-height: 32px;
-    margin: 0 15px;
+    margin-right: 14px;
+    margin-left: 7px;
+
+    @media (max-width: 400px) {
+        margin-right: 2px;
+        margin-left: 0px;
+    }
 `;

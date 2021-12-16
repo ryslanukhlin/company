@@ -32,7 +32,7 @@ const Container = styled.div`
 
     @media (max-width: 998px) {
         margin-left: 0px;
-        padding: 160px 16px 0px;
+        padding: 130px 16px 0px;
     }
 `;
 

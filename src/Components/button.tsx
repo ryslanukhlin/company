@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Wrapper } from "./pages/authorization/style";
+import { Wrapper as HomeWrapper } from "./pages/home/style";
 
 type PropsButton = {
     width?: string;
@@ -66,6 +67,26 @@ export const Button = styled.button<PropsButton>`
                 : "#4f896c"};
         border: ${(props) => (props.bgColor === "none" ? "1px solid #4F896C" : "none")};
         color: ${(props) => (props.bgColor === "none" ? "#4F896C" : "#fff")};
+    }
+
+    ${HomeWrapper} & {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 998px) {
+            font-size: 0px;
+            width: 48px;
+        }
+    }
+
+    ${HomeWrapper} & span {
+        font-size: 25px !important;
+        margin-right: 11px;
+
+        @media (max-width: 998px) {
+            margin-right: 0px;
+        }
     }
 
     ${Wrapper} & {

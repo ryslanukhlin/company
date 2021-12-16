@@ -83,7 +83,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
             <Wrapper>
                 <Title>Your claims</Title>
                 <Button fs="18px" width="174px" height="48px">
-                    Create claim
+                    <span>+</span>Create claim
                 </Button>
             </Wrapper>
             {width > 850 ? (

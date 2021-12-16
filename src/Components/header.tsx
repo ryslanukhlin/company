@@ -36,7 +36,7 @@ export const HeaderStyle = styled.div`
 `;
 
 const Burger = styled.div`
-    height: 24px;
+    height: 25px;
     width: 24px;
     display: flex;
     justify-content: center;
