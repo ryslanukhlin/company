@@ -6,17 +6,21 @@ import {
     TAuthErrorLogin,
     TAuthErrorPassword,
     TAuthLogin,
+    TAuthLogout,
+    TAuthSetDonwload,
     TAuthState,
 } from "./auth_type";
 
 const authState: TAuthState = {
-    isAuth: true,
+    isAuth: false,
+    download: false,
 };
 
 const authReducer = (state: TAuthState = authState, action: TAuthAction): TAuthState => {
     switch (action.type) {
         case AuthActionEnun.AUTH_LOGIN:
             return {
+                ...state,
                 isAuth: true,
                 user: action.payload,
                 errorLogin: undefined,
@@ -28,6 +32,10 @@ const authReducer = (state: TAuthState = authState, action: TAuthAction): TAuthS
             return { ...state, errorPassword: action.payload };
         case AuthActionEnun.AUTH_CLEAR_MESSAGE:
             return { ...state, errorPassword: undefined, errorLogin: undefined };
+        case AuthActionEnun.AUTH_SET_DOWNLOAD:
+            return { ...state, download: action.payload };
+        case AuthActionEnun.AUTH_LOGOUT:
+            return { ...state, isAuth: false, user: undefined };
         default:
             return state;
     }
@@ -52,4 +60,13 @@ export const errorPassword = (error: string): TAuthErrorPassword => ({
 
 export const clearMessage = (): TAuthClearMessage => ({
     type: AuthActionEnun.AUTH_CLEAR_MESSAGE,
+});
+
+export const setDownloadAuth = (download: boolean): TAuthSetDonwload => ({
+    type: AuthActionEnun.AUTH_SET_DOWNLOAD,
+    payload: download,
+});
+
+export const logout = (): TAuthLogout => ({
+    type: AuthActionEnun.AUTH_LOGOUT,
 });

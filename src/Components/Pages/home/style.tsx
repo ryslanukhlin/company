@@ -32,7 +32,7 @@ export const Tr = styled.tr`
     border-top: 1px solid #c2c2c2;
 `;
 
-export const Th = styled.th`
+export const ThStyle = styled.th`
     font-size: 18px;
     line-height: 22px;
     color: #2d3436;
@@ -41,6 +41,30 @@ export const Th = styled.th`
     &:first-child {
         padding-left: 24px;
     }
+`;
+
+export const ThTxt = styled.div`
+    position: relative;
+    width: fit-content;
+`;
+
+type TArrowProps = {
+    active?: boolean;
+};
+
+export const ArrowTop = styled.div<TArrowProps>`
+    position: absolute;
+    border: 7px solid transparent;
+    border-bottom: 4px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
+    top: -2px;
+    left: calc(100% + 10px);
+`;
+export const ArrowBottom = styled.div<TArrowProps>`
+    position: absolute;
+    border: 7px solid transparent;
+    border-top: 4px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
+    top: 14px;
+    left: calc(100% + 10px);
 `;
 
 export const Td = styled.td`
@@ -63,7 +87,7 @@ export const ClaimType = styled.p<ClainTypeProps>`
     line-height: 20px;
     position: relative;
 
-    &::after {
+    &::before {
         content: "";
         display: inline-block;
         border-radius: 50%;
@@ -71,7 +95,7 @@ export const ClaimType = styled.p<ClainTypeProps>`
         width: 16px;
         height: 16px;
         background-color: ${(props) => props.theme.colors[props.type]};
-        left: -103px;
+        left: -30px;
         bottom: -2px;
     }
 `;
@@ -124,9 +148,14 @@ export const PaginateArrow = styled.div<PaginateArrowProps>`
         bottom: ${(props) => (props.arrow === "left" ? "7px" : "13px")};
     }
 `;
-export const Paginater = styled.div`
+
+type TPaginateProps = {
+    active: boolean;
+};
+
+export const Paginater = styled.div<TPaginateProps>`
     border-radius: 2px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid ${(props) => (props.active ? "#7DB59A" : "#d9d9d9")};
     width: 32px;
     height: 32px;
     font-size: 14px;
@@ -173,3 +202,10 @@ export const CardInfo = styled.div`
 export const CardInfoName = styled.div``;
 
 export const CardInfoValue = styled.div``;
+
+export const DotsPaginate = styled.div`
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 14px;
+    line-height: 32px;
+    margin: 0 15px;
+`;

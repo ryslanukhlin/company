@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Wrapper } from "./pages/authorization/style";
 
 type PropsButton = {
     width?: string;
@@ -65,6 +66,12 @@ export const Button = styled.button<PropsButton>`
                 : "#4f896c"};
         border: ${(props) => (props.bgColor === "none" ? "1px solid #4F896C" : "none")};
         color: ${(props) => (props.bgColor === "none" ? "#4F896C" : "#fff")};
+    }
+
+    ${Wrapper} & {
+        @media (max-width: 500px) {
+            width: 100%;
+        }
     }
 
     @media (max-width: 430px) {

@@ -30,14 +30,17 @@ type TProps = {
     loginRequest: typeof loginRequest;
     errorLogin: string | undefined;
     errorPassword: string | undefined;
+    download: boolean;
 };
 
-const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPassword }) => {
+const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPassword, download }) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [checked, setChecked] = React.useState(false);
 
-    const login = () => loginRequest(email, password);
+    const login = () => loginRequest(email, password, checked);
+
+    if (download) return null;
 
     return (
         <>
@@ -122,10 +125,12 @@ const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPasswo
 const mapStateToProps = (state: TRootState) => ({
     errorLogin: state.authReducer.errorLogin,
     errorPassword: state.authReducer.errorPassword,
+    download: state.authReducer.download,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    loginRequest: (email: string, password: string) => dispatch(loginRequest(email, password)),
+    loginRequest: (email: string, password: string, check: boolean) =>
+        dispatch(loginRequest(email, password, check)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorization);

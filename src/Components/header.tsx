@@ -6,7 +6,13 @@ import notification from "../assets/img/notification.svg";
 import notificationWhite from "../assets/img/notificationWhite.svg";
 import userLogo from "../assets/img/user.png";
 import exit from "../assets/img/exit.svg";
+import searchIcon from "../assets/img/search.svg";
+
 import useWindowSize from "../hooks/use_window_size";
+import { logout } from "../store/auth/auth_reducer";
+import { connect } from "react-redux";
+import { TRootState } from "../store/store";
+import { setSearch } from "../store/page/page_reducer";
 
 export const HeaderStyle = styled.div`
     height: 96px;
@@ -123,9 +129,13 @@ const Notification: React.FC<NotificationProps> = ({ src }) => {
 
 type THeaderProps = {
     setActiveBar: (active: boolean) => void;
+    logout: typeof logout;
+    fullName: string | undefined;
+    search: string;
+    setSearch: (search: string) => void;
 };
 
-const Header: React.FC<THeaderProps> = ({ setActiveBar }) => {
+const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName, search, setSearch }) => {
     const width = useWindowSize()[0];
 
     return (
@@ -134,14 +144,35 @@ const Header: React.FC<THeaderProps> = ({ setActiveBar }) => {
                 <span></span>
             </Burger>
             <HeaderWrapper>
-                <Input width="585px" mr="74px" placeholder="search"></Input>
+                <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    width="585px"
+                    mr="74px"
+                    placeholder="search"
+                    icon={searchIcon}
+                ></Input>
                 <Notification src={width >= 998 ? notification : notificationWhite} />
                 <UserLogo src={userLogo} />
-                <UserName>Ivan Ivanov</UserName>
-                <Exit src={exit} alt="exit" />
+                <UserName>{fullName}</UserName>
+                <Exit onClick={logout} src={exit} alt="exit" />
             </HeaderWrapper>
         </HeaderStyle>
     );
 };
 
-export default Header;
+const mapStateToProps = (state: TRootState) => ({
+    fullName: state.authReducer.user?.fullName,
+    search: state.pageReducer.search,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+    logout: () => {
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("token");
+        return dispatch(logout());
+    },
+    setSearch: (search: string) => dispatch(setSearch(search)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -11,6 +11,12 @@ export interface IUser {
     email: string;
 }
 
+export interface IUserGetTokenRequest {
+    role: Role;
+    fullName: string;
+    email: string;
+}
+
 interface Role {
     name: string;
     slug: string;
@@ -21,6 +27,7 @@ export type TAuthState = {
     user?: IUser;
     errorLogin?: string;
     errorPassword?: string;
+    download: boolean;
 };
 
 export enum AuthActionEnun {
@@ -28,6 +35,8 @@ export enum AuthActionEnun {
     AUTH_ERROR_LOGIN = "AUTH_ERROR",
     AUTH_ERROR_PASSWORD = "AUTH_ERROR_PASSWORD",
     AUTH_CLEAR_MESSAGE = "AUTH_CLEAR_MESSAGE",
+    AUTH_SET_DOWNLOAD = "AUTH_SET_DOWNLOAD",
+    AUTH_LOGOUT = "AUTH_LOGOUT",
 }
 
 export type TAuthLogin = {
@@ -49,4 +58,19 @@ export type TAuthClearMessage = {
     type: AuthActionEnun.AUTH_CLEAR_MESSAGE;
 };
 
-export type TAuthAction = TAuthLogin | TAuthErrorLogin | TAuthErrorPassword | TAuthClearMessage;
+export type TAuthSetDonwload = {
+    type: AuthActionEnun.AUTH_SET_DOWNLOAD;
+    payload: boolean;
+};
+
+export type TAuthLogout = {
+    type: AuthActionEnun.AUTH_LOGOUT;
+};
+
+export type TAuthAction =
+    | TAuthLogin
+    | TAuthErrorLogin
+    | TAuthErrorPassword
+    | TAuthClearMessage
+    | TAuthSetDonwload
+    | TAuthLogout;

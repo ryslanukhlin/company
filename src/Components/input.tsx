@@ -41,6 +41,10 @@ export const InputIconImg = styled.img`
     position: absolute;
     right: 16px;
     bottom: 14px;
+
+    ${HeaderStyle} & {
+        right: calc(15%);
+    }
 `;
 
 type TInputProps = {

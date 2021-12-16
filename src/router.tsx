@@ -9,7 +9,7 @@ type TProps = {
     isAuth: boolean;
 };
 
-const router: React.FC<TProps> = ({ isAuth }) => {
+const Router: React.FC<TProps> = ({ isAuth }) => {
     return (
         <Routes>
             {isAuth ? (
@@ -31,4 +31,4 @@ const mapStateToProps = (state: TRootState) => ({
     isAuth: state.authReducer.isAuth,
 });
 
-export default connect(mapStateToProps)(router);
+export default connect(mapStateToProps)(Router);

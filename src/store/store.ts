@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunk from "redux-thunk";
 import authReducer from "./auth/auth_reducer";
+import { pageReducer } from "./page/page_reducer";
 
 const combineReducer = combineReducers({
     authReducer,
+    pageReducer,
 });
 
 export type TRootState = ReturnType<typeof combineReducer>;

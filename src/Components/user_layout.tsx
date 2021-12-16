@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { getUser } from "../store/auth/auth_action";
 import { TRootState } from "../store/store";
 import Header from "./header";
 import Navbar from "./navbar";
@@ -37,10 +38,21 @@ const Container = styled.div`
 
 type TPropsUserLaout = {
     isAuth: boolean;
+    getUser: typeof getUser;
 };
 
-const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth }) => {
+const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser }) => {
     const [activeBar, setActiveBar] = React.useState(false);
+
+    React.useEffect(() => {
+        const userId = localStorage.getItem("user_id");
+        const token = localStorage.getItem("token");
+
+        if (userId && token) {
+            getUser(userId, token);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const replaceActiveNavBar = (active: boolean) => {
         setActiveBar(active);
@@ -57,13 +69,9 @@ const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth }) => {
         <>
             <Navbar activeBar={activeBar} />
             <Header setActiveBar={replaceActiveNavBar} />
-            {activeBar ? (
-                <BgContainer onClick={replaceActiveNavBar.bind(null, false)} activeBar={activeBar}>
-                    <Container>{children}</Container>
-                </BgContainer>
-            ) : (
+            <BgContainer onClick={replaceActiveNavBar.bind(null, false)} activeBar={activeBar}>
                 <Container>{children}</Container>
-            )}
+            </BgContainer>
         </>
     );
 };
@@ -72,4 +80,8 @@ const mapStateToProps = (state: TRootState) => ({
     isAuth: state.authReducer.isAuth,
 });
 
-export default connect(mapStateToProps)(UserLayout);
+const mapDispatchToProps = (dispatch: any) => ({
+    getUser: (userId: string, token: string) => dispatch(getUser(userId, token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserLayout);
