@@ -86,7 +86,7 @@ const CreateClaim: React.FC<TPropsCreateClaim> = ({ token }) => {
                 <FormGroup mb="0px">
                     <Label>TYPE</Label>
                     <Select
-                        values={['hard', 'soft', 'net', 'troublesh']}
+                        values={['hard', 'soft', 'troublesh', 'net']}
                         onChange={updateClaim}
                         options={[
                             <ClaimType type="success">Hardware</ClaimType>,

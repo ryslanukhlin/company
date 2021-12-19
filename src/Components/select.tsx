@@ -98,6 +98,10 @@ const OptionWrapper = styled.div<TOptionWrapperProps>`
     display: ${({ active }) => (active ? 'block' : 'none')};
     top: ${({ active }) => (active ? '43px' : '-210%')};
     transition: 0.1s all ease-in-out;
+
+    @media (max-width: 650px) {
+        width: 100%;
+    }
 `;
 
 type TOptionProps = {
