@@ -72,8 +72,8 @@ const CreateClaim: React.FC<TPropsCreateClaim> = ({ token }) => {
     return (
         <>
             <Title>Creating new claim</Title>
-            <Form>
-                <FormGroup>
+            <Form mb="12px">
+                <FormGroup mb="0px">
                     <Label>TITLE</Label>
                     <Input
                         value={title}
@@ -81,9 +81,9 @@ const CreateClaim: React.FC<TPropsCreateClaim> = ({ token }) => {
                         width="589px"
                         placeholder="Type claim title"
                     />
-                    {errorTitle && <ErrorInputMessage>{errorTitle}</ErrorInputMessage>}
+                    <ErrorInputMessage>{errorTitle}</ErrorInputMessage>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup mb="0px">
                     <Label>TYPE</Label>
                     <Select
                         values={['hard', 'soft', 'net', 'troublesh']}
@@ -97,9 +97,9 @@ const CreateClaim: React.FC<TPropsCreateClaim> = ({ token }) => {
                         placeholder="Select type"
                         width="589px"
                     />
-                    {errorType && <ErrorInputMessage>{errorType}</ErrorInputMessage>}
+                    <ErrorInputMessage>{errorType}</ErrorInputMessage>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup mb="0px">
                     <Label>DESCRIPTION</Label>
                     <Input
                         value={description}
@@ -107,7 +107,7 @@ const CreateClaim: React.FC<TPropsCreateClaim> = ({ token }) => {
                         width="589px"
                         placeholder="Type claim description"
                     />
-                    {errorDescription && <ErrorInputMessage>{errorDescription}</ErrorInputMessage>}
+                    <ErrorInputMessage>{errorDescription}</ErrorInputMessage>
                 </FormGroup>
             </Form>
             <Button

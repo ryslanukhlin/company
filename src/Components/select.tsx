@@ -163,7 +163,7 @@ const Select: React.FC<TSelectProps> = ({
             <SelectStyle
                 placeholder={optionIndex ? '' : placeholder}
                 width={width}
-                disabled={disabled}
+                disabled
                 error={error}
                 {...props}
             />
