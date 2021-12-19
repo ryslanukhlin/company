@@ -126,7 +126,7 @@ type TSelectProps = {
     error?: boolean;
     width?: string;
     mr?: string;
-    options: React.ReactNode[];
+    RnOptions: React.ReactNode[];
     disabled?: boolean;
 };
 
@@ -137,7 +137,7 @@ const InputActive = styled.div`
 
 const Select: React.FC<TSelectProps> = ({
     error,
-    options,
+    RnOptions,
     placeholder,
     width,
     values,
@@ -171,9 +171,9 @@ const Select: React.FC<TSelectProps> = ({
                 error={error}
                 {...props}
             />
-            {optionIndex && <InputActive>{options[optionIndex - 1]}</InputActive>}
+            {optionIndex && <InputActive>{RnOptions[optionIndex - 1]}</InputActive>}
             <OptionWrapper active={active} width={width}>
-                {options.map((option, index) => (
+                {RnOptions.map((option, index) => (
                     <Option
                         onClick={setOptionIndex.bind(null, index + 1)}
                         key={Date.now().toString() + index}
