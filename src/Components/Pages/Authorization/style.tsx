@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { InputIconImg } from "../../input";
+import styled from 'styled-components';
+import { InputIconImg } from '../../input';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -72,40 +72,21 @@ type propsForm = {
 };
 
 export const Form = styled.form<propsForm>`
-    width: ${(props) => (props.width ? props.width : "589px")};
+    width: ${(props) => (props.width ? props.width : '589px')};
     @media (max-width: 500px) {
         width: 100%;
         padding: 0 16px;
     }
 `;
 
-export const ErrorInputMessage = styled.div`
-    color: #cc1f1f;
-    display: block;
-    font-size: 18px;
-    line-height: 32px;
-    margin-top: 2px;
-    margin-bottom: 8px;
-    min-height: 32px;
-
-    @media (max-width: 430px) {
-        margin-top: 0px;
-    }
-
-    @media (max-height: 500px) {
-        margin-top: 0px;
-        font-size: 12px;
-    }
-`;
-
 export const CheckBoxLabel = styled.label`
     line-height: 17px;
     font-size: 12px;
-    color: "#2d343";
+    color: '#2d343';
     margin-left: 14px;
 
     &:before {
-        content: "";
+        content: '';
         display: inline-block;
         height: 18px;
         width: 18px;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     width: 100%;
@@ -9,16 +9,6 @@ export const Wrapper = styled.div`
 
     @media (max-width: 998px) {
         margin-bottom: 33px;
-    }
-`;
-
-export const Title = styled.h1`
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 44px;
-    color: black;
-    @media (max-width: 998px) {
-        font-size: 24px;
     }
 `;
 
@@ -33,10 +23,16 @@ export const TableHader = styled.thead`
     background: #f1f1f1;
 `;
 
-export const TableBody = styled.tbody``;
+export const TableBody = styled.tbody`
+    position: relative;
+`;
 
 export const Tr = styled.tr`
     border-top: 1px solid #c2c2c2;
+
+    &:first-child {
+        border-top: none;
+    }
 `;
 
 export const ThStyle = styled.th`
@@ -62,14 +58,14 @@ type TArrowProps = {
 export const ArrowTop = styled.div<TArrowProps>`
     position: absolute;
     border: 4px solid transparent;
-    border-bottom: 3px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
+    border-bottom: 3px solid ${(props) => (props.active ? 'black' : '#c2c2c2')};
     top: 3px;
     left: calc(100% + 20px);
 `;
 export const ArrowBottom = styled.div<TArrowProps>`
     position: absolute;
     border: 4px solid transparent;
-    border-top: 3px solid ${(props) => (props.active ? "black" : "#c2c2c2")};
+    border-top: 3px solid ${(props) => (props.active ? 'black' : '#c2c2c2')};
     top: 13px;
     left: calc(100% + 20px);
 `;
@@ -80,30 +76,6 @@ export const Td = styled.td`
 
     &:first-child {
         padding-left: 24px;
-    }
-`;
-
-type ClainTypeProps = {
-    type: "primary" | "success" | "danger" | "warning";
-};
-
-export const ClaimType = styled.p<ClainTypeProps>`
-    padding-left: 40px;
-    color: #2d3436;
-    font-size: 16px;
-    line-height: 20px;
-    position: relative;
-
-    &::before {
-        content: "";
-        display: inline-block;
-        border-radius: 50%;
-        position: relative;
-        width: 16px;
-        height: 16px;
-        background-color: ${(props) => props.theme.colors[props.type]};
-        left: -30px;
-        bottom: -2px;
     }
 `;
 
@@ -124,7 +96,7 @@ export const PaginateWrapper = styled.div`
 `;
 
 type PaginateArrowProps = {
-    arrow: "left" | "right";
+    arrow: 'left' | 'right';
 };
 
 export const PaginateArrow = styled.div<PaginateArrowProps>`
@@ -134,7 +106,7 @@ export const PaginateArrow = styled.div<PaginateArrowProps>`
     padding: 10px;
     width: 32px;
     height: 32px;
-    margin-right: ${(props) => (props.arrow === "left" ? "8px" : "0")};
+    margin-right: ${(props) => (props.arrow === 'left' ? '8px' : '0')};
 
     @media (max-width: 400px) {
         &:first-child {
@@ -153,7 +125,7 @@ export const PaginateArrow = styled.div<PaginateArrowProps>`
         background: #d9d9d9;
         height: 10px;
         transform: rotate(45deg);
-        bottom: ${(props) => (props.arrow === "left" ? "13px" : "7px")};
+        bottom: ${(props) => (props.arrow === 'left' ? '13px' : '7px')};
     }
     & span:last-child {
         position: absolute;
@@ -162,7 +134,7 @@ export const PaginateArrow = styled.div<PaginateArrowProps>`
         background: #d9d9d9;
         height: 10px;
         transform: rotate(-45deg);
-        bottom: ${(props) => (props.arrow === "left" ? "7px" : "13px")};
+        bottom: ${(props) => (props.arrow === 'left' ? '7px' : '13px')};
     }
 `;
 
@@ -172,7 +144,7 @@ type TPaginateProps = {
 
 export const Paginater = styled.div<TPaginateProps>`
     border-radius: 2px;
-    border: 1px solid ${(props) => (props.active ? "#7DB59A" : "#d9d9d9")};
+    border: 1px solid ${(props) => (props.active ? '#7DB59A' : '#d9d9d9')};
     width: 32px;
     height: 32px;
     font-size: 14px;

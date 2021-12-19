@@ -18,8 +18,8 @@ export interface IUserGetTokenRequest {
 }
 
 interface Role {
-    name: string;
-    slug: string;
+    name: 'Worker' | 'Administrator';
+    slug: 'admin' | 'work';
 }
 
 export type TAuthState = {
@@ -31,12 +31,12 @@ export type TAuthState = {
 };
 
 export enum AuthActionEnun {
-    AUTH_LOGIN = "AUTH_LOGIN",
-    AUTH_ERROR_LOGIN = "AUTH_ERROR",
-    AUTH_ERROR_PASSWORD = "AUTH_ERROR_PASSWORD",
-    AUTH_CLEAR_MESSAGE = "AUTH_CLEAR_MESSAGE",
-    AUTH_SET_DOWNLOAD = "AUTH_SET_DOWNLOAD",
-    AUTH_LOGOUT = "AUTH_LOGOUT",
+    AUTH_LOGIN = 'AUTH_LOGIN',
+    AUTH_ERROR_LOGIN = 'AUTH_ERROR',
+    AUTH_ERROR_PASSWORD = 'AUTH_ERROR_PASSWORD',
+    AUTH_CLEAR_MESSAGE = 'AUTH_CLEAR_MESSAGE',
+    AUTH_SET_DOWNLOAD = 'AUTH_SET_DOWNLOAD',
+    AUTH_LOGOUT = 'AUTH_LOGOUT',
 }
 
 export type TAuthLogin = {

@@ -1,10 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import { SERVER_URI } from "../../../config";
-import useWindowSize from "../../../hooks/use_window_size";
-import { TRootState } from "../../../store/store";
-import { Button } from "../../button";
-import { Th } from "./home_th";
+import React from 'react';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SERVER_URI } from '../../../config';
+import useWindowSize from '../../../hooks/use_window_size';
+import { TRootState } from '../../../store/store';
+import { Button } from '../../button';
+import { ClaimType } from '../../claim_type';
+import { Title } from '../../page_title';
+import { Th } from './home_th';
 import {
     Card,
     CardBody,
@@ -12,7 +15,6 @@ import {
     CardInfoName,
     CardInfoValue,
     CardTitle,
-    ClaimType,
     DotsPaginate,
     Link,
     PaginateArrow,
@@ -22,11 +24,10 @@ import {
     TableBody,
     TableHader,
     Td,
-    Title,
     Tr,
     Wrapper,
-} from "./style";
-import { Claim, TClaimRequest } from "./type";
+} from './style';
+import { Claim, TClaimRequest } from './type';
 
 const getDate = (date: string) => {
     const data = new Date(date);
@@ -34,11 +35,11 @@ const getDate = (date: string) => {
     let mounth: number | string = data.getMonth() + 1;
 
     if (day < 10) {
-        day = "0" + day;
+        day = '0' + day;
     }
 
     if (mounth < 10) {
-        mounth = "0" + mounth;
+        mounth = '0' + mounth;
     }
 
     return `${day}/${mounth}/${data.getFullYear()}`;
@@ -47,27 +48,30 @@ const getDate = (date: string) => {
 type THomeProps = {
     token: string | undefined;
     search: string;
+    role?: 'admin' | 'work';
 };
 
-const Home: React.FC<THomeProps> = ({ token, search }) => {
+const Home: React.FC<THomeProps> = ({ token, search, role }) => {
     const width = useWindowSize()[0];
     const [totalItems, setTotalItems] = React.useState<number>(0);
     const [claims, setClaims] = React.useState<Claim[]>([]);
     const [offset, setOffset] = React.useState(0);
-    const [column, setColum] = React.useState<"title" | "createdAt" | "type" | "status">();
-    const [sort, setSort] = React.useState<"asc" | "desc">();
+    const [column, setColum] = React.useState<'title' | 'createdAt' | 'type' | 'status'>();
+    const [sort, setSort] = React.useState<'asc' | 'desc'>();
+
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         async function fetchData() {
-            let queryParametrs = "?limit=10&offset=" + offset;
+            let queryParametrs = '?limit=10&offset=' + offset;
 
-            if (column) queryParametrs += "&column=" + column;
-            if (sort) queryParametrs += "&sort=" + sort;
-            if (!!search) queryParametrs += "&search=" + search;
+            if (column) queryParametrs += '&column=' + column;
+            if (sort) queryParametrs += '&sort=' + sort;
+            if (!!search) queryParametrs += '&search=' + search;
 
-            const request = await fetch(SERVER_URI + "/claim" + queryParametrs, {
+            const request = await fetch(SERVER_URI + '/claim' + queryParametrs, {
                 headers: {
-                    Authorization: "Bearer " + token,
+                    Authorization: 'Bearer ' + token,
                 },
             });
             const data: TClaimRequest = await request.json();
@@ -82,7 +86,11 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
         <>
             <Wrapper>
                 <Title>Your claims</Title>
-                <Button fs="18px" width="174px" height="48px">
+                <Button
+                    onClick={() => navigate('/createClaim')}
+                    fs="18px"
+                    width="174px"
+                    height="48px">
                     <span>+</span>Create claim
                 </Button>
             </Wrapper>
@@ -96,8 +104,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 setColum={setColum}
                                 setSort={setSort}
                                 sort={sort}
-                                columnActive={column}
-                            >
+                                columnActive={column}>
                                 Title
                             </Th>
                             <Th
@@ -106,8 +113,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 setColum={setColum}
                                 setSort={setSort}
                                 sort={sort}
-                                columnActive={column}
-                            >
+                                columnActive={column}>
                                 Created
                             </Th>
                             <Th
@@ -116,8 +122,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 setColum={setColum}
                                 setSort={setSort}
                                 sort={sort}
-                                columnActive={column}
-                            >
+                                columnActive={column}>
                                 Type
                             </Th>
                             <Th
@@ -126,8 +131,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 setColum={setColum}
                                 setSort={setSort}
                                 sort={sort}
-                                columnActive={column}
-                            >
+                                columnActive={column}>
                                 Status
                             </Th>
                             <Th>Actions</Th>
@@ -141,33 +145,33 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 <Td>
                                     <ClaimType
                                         type={
-                                            claim.type?.slug === "hard"
-                                                ? "success"
-                                                : claim.type?.slug === "soft"
-                                                ? "danger"
-                                                : claim.type?.slug === "net"
-                                                ? "warning"
-                                                : "primary"
-                                        }
-                                    >
+                                            claim.type?.slug === 'hard'
+                                                ? 'success'
+                                                : claim.type?.slug === 'soft'
+                                                ? 'danger'
+                                                : claim.type?.slug === 'net'
+                                                ? 'warning'
+                                                : 'primary'
+                                        }>
                                         {claim.type?.name}
                                     </ClaimType>
                                 </Td>
                                 <Td>
                                     <Button
+                                        disabled={role === 'work' ? true : false}
+                                        onClick={() => navigate('/updateClaim/' + claim._id)}
                                         bgColor={
-                                            claim.status?.slug === "decl"
-                                                ? "primary"
-                                                : claim.status?.slug === "new"
-                                                ? "danger"
-                                                : claim.status?.slug === "done"
-                                                ? "success"
-                                                : "warning"
+                                            claim.status?.slug === 'decl'
+                                                ? 'primary'
+                                                : claim.status?.slug === 'new'
+                                                ? 'danger'
+                                                : claim.status?.slug === 'done'
+                                                ? 'success'
+                                                : 'warning'
                                         }
                                         textTransform="uppercase"
                                         width="142px"
-                                        height="32px"
-                                    >
+                                        height="32px">
                                         {claim.status?.name}
                                     </Button>
                                 </Td>
@@ -192,15 +196,14 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 <CardInfoValue>
                                     <ClaimType
                                         type={
-                                            claim.type?.slug === "hard"
-                                                ? "success"
-                                                : claim.type?.slug === "soft"
-                                                ? "danger"
-                                                : claim.type?.slug === "net"
-                                                ? "warning"
-                                                : "primary"
-                                        }
-                                    >
+                                            claim.type?.slug === 'hard'
+                                                ? 'success'
+                                                : claim.type?.slug === 'soft'
+                                                ? 'danger'
+                                                : claim.type?.slug === 'net'
+                                                ? 'warning'
+                                                : 'primary'
+                                        }>
                                         {claim.type?.name}
                                     </ClaimType>
                                 </CardInfoValue>
@@ -209,19 +212,19 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                                 <CardInfoName>Status</CardInfoName>
                                 <CardInfoValue>
                                     <Button
+                                        onClick={() => navigate('/updateClaim/' + claim._id)}
                                         bgColor={
-                                            claim.status?.slug === "decl"
-                                                ? "primary"
-                                                : claim.status?.slug === "new"
-                                                ? "danger"
-                                                : claim.status?.slug === "done"
-                                                ? "success"
-                                                : "warning"
+                                            claim.status?.slug === 'decl'
+                                                ? 'primary'
+                                                : claim.status?.slug === 'new'
+                                                ? 'danger'
+                                                : claim.status?.slug === 'done'
+                                                ? 'success'
+                                                : 'warning'
                                         }
                                         textTransform="uppercase"
                                         width="142px"
-                                        height="32px"
-                                    >
+                                        height="32px">
                                         {claim.status?.name}
                                     </Button>
                                 </CardInfoValue>
@@ -238,8 +241,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                     onClick={setOffset.bind(null, (prev) =>
                         prev === 0 ? Math.ceil(totalItems / 10) * 10 - 10 : prev - 10,
                     )}
-                    arrow="left"
-                >
+                    arrow="left">
                     <span></span> <span></span>
                 </PaginateArrow>
                 {[...Array(Math.ceil(totalItems / 10))].map((value, index) => {
@@ -267,8 +269,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                         <Paginater
                             onClick={setOffset.bind(null, index * 10)}
                             key={`${Date.now().toString() + index}`}
-                            active={offset === index * 10}
-                        >
+                            active={offset === index * 10}>
                             {index + 1}
                         </Paginater>
                     );
@@ -277,8 +278,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
                     onClick={setOffset.bind(null, (prev) =>
                         prev === Math.ceil(totalItems / 10) * 10 - 10 ? 0 : prev + 10,
                     )}
-                    arrow="right"
-                >
+                    arrow="right">
                     <span></span> <span></span>
                 </PaginateArrow>
             </PaginateWrapper>
@@ -289,6 +289,7 @@ const Home: React.FC<THomeProps> = ({ token, search }) => {
 const mapStateToProps = (state: TRootState) => ({
     token: state.authReducer.user?.token,
     search: state.pageReducer.search,
+    role: state.authReducer.user?.role.slug,
 });
 
 export default connect(mapStateToProps)(Home);

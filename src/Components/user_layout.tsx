@@ -1,10 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import { getUser } from "../store/auth/auth_action";
-import { TRootState } from "../store/store";
-import Header from "./header";
-import Navbar from "./navbar";
+import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { getUser } from '../store/auth/auth_action';
+import { TRootState } from '../store/store';
+import Header from './header';
+import Navbar from './navbar';
 
 type TContainerProps = {
     activeBar: boolean;
@@ -14,7 +14,7 @@ const BgContainer = styled.div<TContainerProps>`
     position: relative;
 
     &::after {
-        content: ${(props) => (props.activeBar ? "''" : "none")};
+        content: ${(props) => (props.activeBar ? "''" : 'none')};
         position: absolute;
         left: 0;
         top: 0;
@@ -39,14 +39,15 @@ const Container = styled.div`
 type TPropsUserLaout = {
     isAuth: boolean;
     getUser: typeof getUser;
+    download: boolean;
 };
 
-const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser }) => {
+const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser, download }) => {
     const [activeBar, setActiveBar] = React.useState(false);
 
     React.useEffect(() => {
-        const userId = localStorage.getItem("user_id");
-        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem('user_id');
+        const token = localStorage.getItem('token');
 
         if (userId && token) {
             getUser(userId, token);
@@ -57,9 +58,13 @@ const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser }) =>
     const replaceActiveNavBar = (active: boolean) => {
         setActiveBar(active);
         active
-            ? (document.getElementsByTagName("body")[0].style.overflow = "hidden")
-            : (document.getElementsByTagName("body")[0].style.overflow = "scroll");
+            ? (document.getElementsByTagName('body')[0].style.overflow = 'hidden')
+            : (document.getElementsByTagName('body')[0].style.overflow = 'scroll');
     };
+
+    if (download) {
+        return null;
+    }
 
     if (!isAuth) {
         return <>{children}</>;
@@ -78,6 +83,7 @@ const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser }) =>
 
 const mapStateToProps = (state: TRootState) => ({
     isAuth: state.authReducer.isAuth,
+    download: state.authReducer.download,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

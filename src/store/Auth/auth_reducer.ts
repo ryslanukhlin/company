@@ -9,7 +9,7 @@ import {
     TAuthLogout,
     TAuthSetDonwload,
     TAuthState,
-} from "./auth_type";
+} from './auth_type';
 
 const authState: TAuthState = {
     isAuth: false,

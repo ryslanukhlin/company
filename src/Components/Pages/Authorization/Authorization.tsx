@@ -1,52 +1,68 @@
-import React from "react";
-import { connect } from "react-redux";
-import { loginRequest } from "../../../store/auth/auth_action";
+import React from 'react';
+import { connect } from 'react-redux';
+import { loginRequest } from '../../../store/auth/auth_action';
 import {
     CheckBoxLabel,
     ContainerForm,
     ContainerImg,
-    ErrorInputMessage,
     Footer,
     FooterWrapper,
     Form,
     HelpText,
     Wrapper,
-} from "./style";
-import Input from "../../input";
-import { Label } from "../../label";
-import { FormGroup } from "../../form_group";
-import { Title } from "../../title";
-import { TRootState } from "../../../store/store";
-import { SubTitle } from "../../sub_title";
-import { Button } from "../../button";
+} from './style';
+import Input from '../../input';
+import { Label } from '../../label';
+import { FormGroup } from '../../form_group';
+import { Title } from '../../title';
+import { TRootState } from '../../../store/store';
+import { SubTitle } from '../../sub_title';
+import { Button } from '../../button';
 
-import bg from "../../../assets/img/cod_home_section2-1536x1491 1.png";
-import logo from "../../../assets/img/Logo.svg";
-import logo2 from "../../../assets/img/Logo2.svg";
-import iconMail from "../../../assets/img/iconMail.svg";
-import iconPass from "../../../assets/img/iconPass.svg";
+import bg from '../../../assets/img/cod_home_section2-1536x1491 1.png';
+import logo from '../../../assets/img/Logo.svg';
+import logo2 from '../../../assets/img/Logo2.svg';
+import iconMail from '../../../assets/img/iconMail.svg';
+import iconPass from '../../../assets/img/iconPass.svg';
+import { ErrorInputMessage } from '../../input_error';
+import { useNavigate } from 'react-router-dom';
 
 type TProps = {
     loginRequest: typeof loginRequest;
     errorLogin: string | undefined;
     errorPassword: string | undefined;
     download: boolean;
+    isAuth: boolean;
 };
 
-const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPassword, download }) => {
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
+const Authorization: React.FC<TProps> = ({
+    loginRequest,
+    errorLogin,
+    errorPassword,
+    download,
+    isAuth,
+}) => {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const [checked, setChecked] = React.useState(false);
+
+    const navigate = useNavigate();
 
     const login = () => loginRequest(email, password, checked);
 
-    if (download) return null;
+    if (isAuth) {
+        navigate('/');
+    }
+
+    if (download) {
+        return null;
+    }
 
     return (
         <>
             <Wrapper>
                 <ContainerImg>
-                    <img style={{ width: "100%", height: "100%" }} src={bg} alt="bg" />
+                    <img style={{ width: '100%', height: '100%' }} src={bg} alt="bg" />
                 </ContainerImg>
                 <ContainerForm>
                     <img src={logo} alt="Logo" />
@@ -100,8 +116,7 @@ const Authorization: React.FC<TProps> = ({ loginRequest, errorLogin, errorPasswo
                             height="52px"
                             mb="16px"
                             onClick={login}
-                            type="button"
-                        >
+                            type="button">
                             Login
                         </Button>
 
@@ -126,6 +141,7 @@ const mapStateToProps = (state: TRootState) => ({
     errorLogin: state.authReducer.errorLogin,
     errorPassword: state.authReducer.errorPassword,
     download: state.authReducer.download,
+    isAuth: state.authReducer.isAuth,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

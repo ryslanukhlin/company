@@ -1,18 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import Input from "./input";
+import React from 'react';
+import styled from 'styled-components';
+import Input from './input';
 
-import notification from "../assets/img/notification.svg";
-import notificationWhite from "../assets/img/notificationWhite.svg";
-import userLogo from "../assets/img/user.png";
-import exit from "../assets/img/exit.svg";
-import searchIcon from "../assets/img/search.svg";
+import notification from '../assets/img/notification.svg';
+import notificationWhite from '../assets/img/notificationWhite.svg';
+import userLogo from '../assets/img/user.png';
+import exit from '../assets/img/exit.svg';
+import searchIcon from '../assets/img/search.svg';
 
-import useWindowSize from "../hooks/use_window_size";
-import { logout } from "../store/auth/auth_reducer";
-import { connect } from "react-redux";
-import { TRootState } from "../store/store";
-import { setSearch } from "../store/page/page_reducer";
+import useWindowSize from '../hooks/use_window_size';
+import { logout } from '../store/auth/auth_reducer';
+import { connect } from 'react-redux';
+import { TRootState } from '../store/store';
+import { setSearch } from '../store/page/page_reducer';
+import { useNavigate } from 'react-router-dom';
 
 export const HeaderStyle = styled.div`
     height: 96px;
@@ -53,7 +54,7 @@ const Burger = styled.div`
 
     &::after {
         position: absolute;
-        content: "";
+        content: '';
         display: block;
         width: 24px;
         height: 2px;
@@ -62,7 +63,7 @@ const Burger = styled.div`
     }
     &::before {
         position: absolute;
-        content: "";
+        content: '';
         display: block;
         width: 24px;
         height: 2px;
@@ -82,7 +83,7 @@ const NotificationStyle = styled.div`
     margin-right: 29px;
 
     &::after {
-        content: "";
+        content: '';
         position: absolute;
         background-color: #e84393;
         height: 9px;
@@ -137,6 +138,7 @@ type THeaderProps = {
 
 const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName, search, setSearch }) => {
     const width = useWindowSize()[0];
+    const navigate = useNavigate();
 
     return (
         <HeaderStyle>
@@ -150,12 +152,18 @@ const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName, search
                     width="585px"
                     mr="74px"
                     placeholder="search"
-                    icon={searchIcon}
-                ></Input>
+                    icon={searchIcon}></Input>
                 <Notification src={width >= 998 ? notification : notificationWhite} />
                 <UserLogo src={userLogo} />
                 <UserName>{fullName}</UserName>
-                <Exit onClick={logout} src={exit} alt="exit" />
+                <Exit
+                    onClick={() => {
+                        logout();
+                        navigate('/');
+                    }}
+                    src={exit}
+                    alt="exit"
+                />
             </HeaderWrapper>
         </HeaderStyle>
     );
@@ -168,8 +176,8 @@ const mapStateToProps = (state: TRootState) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
     logout: () => {
-        localStorage.removeItem("user_id");
-        localStorage.removeItem("token");
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('token');
         return dispatch(logout());
     },
     setSearch: (search: string) => dispatch(setSearch(search)),
