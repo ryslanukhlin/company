@@ -7,6 +7,7 @@ import { TRootState } from '../../../store/store';
 import { Button } from '../../button';
 import { ClaimType } from '../../claim_type';
 import { Title } from '../../page_title';
+import { SearchConext } from '../../user_layout';
 import { Th } from './home_th';
 import {
     Card,
@@ -47,17 +48,17 @@ const getDate = (date: string) => {
 
 type THomeProps = {
     token: string | undefined;
-    search: string;
     role?: 'admin' | 'work';
 };
 
-const Home: React.FC<THomeProps> = ({ token, search, role }) => {
+const Home: React.FC<THomeProps> = ({ token, role }) => {
     const width = useWindowSize()[0];
     const [totalItems, setTotalItems] = React.useState<number>(0);
     const [claims, setClaims] = React.useState<Claim[]>([]);
     const [offset, setOffset] = React.useState(0);
     const [column, setColum] = React.useState<'title' | 'createdAt' | 'type' | 'status'>();
     const [sort, setSort] = React.useState<'asc' | 'desc'>();
+    const search = React.useContext(SearchConext)[0];
 
     const navigate = useNavigate();
 
@@ -288,7 +289,6 @@ const Home: React.FC<THomeProps> = ({ token, search, role }) => {
 
 const mapStateToProps = (state: TRootState) => ({
     token: state.authReducer.user?.token,
-    search: state.pageReducer.search,
     role: state.authReducer.user?.role.slug,
 });
 

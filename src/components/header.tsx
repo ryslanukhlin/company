@@ -1,19 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from './input';
-
 import notification from '../assets/img/notification.svg';
 import notificationWhite from '../assets/img/notificationWhite.svg';
 import userLogo from '../assets/img/user.png';
 import exit from '../assets/img/exit.svg';
 import searchIcon from '../assets/img/search.svg';
-
 import useWindowSize from '../hooks/use_window_size';
 import { logout } from '../store/auth/auth_reducer';
 import { connect } from 'react-redux';
 import { TRootState } from '../store/store';
-import { setSearch } from '../store/page/page_reducer';
 import { useNavigate } from 'react-router-dom';
+import { SearchConext } from './user_layout';
 
 export const HeaderStyle = styled.div`
     height: 96px;
@@ -132,13 +130,12 @@ type THeaderProps = {
     setActiveBar: (active: boolean) => void;
     logout: typeof logout;
     fullName: string | undefined;
-    search: string;
-    setSearch: (search: string) => void;
 };
 
-const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName, search, setSearch }) => {
+const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName }) => {
     const width = useWindowSize()[0];
     const navigate = useNavigate();
+    const [search, setSearch] = React.useContext(SearchConext);
 
     return (
         <HeaderStyle>
@@ -148,7 +145,7 @@ const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName, search
             <HeaderWrapper>
                 <Input
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => setSearch!(e.target.value)}
                     width="585px"
                     mr="74px"
                     placeholder="search"
@@ -171,7 +168,6 @@ const Header: React.FC<THeaderProps> = ({ setActiveBar, logout, fullName, search
 
 const mapStateToProps = (state: TRootState) => ({
     fullName: state.authReducer.user?.fullName,
-    search: state.pageReducer.search,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -180,7 +176,6 @@ const mapDispatchToProps = (dispatch: any) => ({
         localStorage.removeItem('token');
         return dispatch(logout());
     },
-    setSearch: (search: string) => dispatch(setSearch(search)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

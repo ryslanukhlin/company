@@ -42,8 +42,13 @@ type TPropsUserLaout = {
     download: boolean;
 };
 
+export const SearchConext = React.createContext<
+    [string, React.Dispatch<React.SetStateAction<string>>] | []
+>([]);
+
 const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser, download }) => {
     const [activeBar, setActiveBar] = React.useState(false);
+    const [search, setSearch] = React.useState('');
 
     React.useEffect(() => {
         const userId = localStorage.getItem('user_id');
@@ -71,13 +76,13 @@ const UserLayout: React.FC<TPropsUserLaout> = ({ children, isAuth, getUser, down
     }
 
     return (
-        <>
+        <SearchConext.Provider value={[search, setSearch]}>
             <Navbar activeBar={activeBar} />
             <Header setActiveBar={replaceActiveNavBar} />
             <BgContainer onClick={replaceActiveNavBar.bind(null, false)} activeBar={activeBar}>
                 <Container>{children}</Container>
             </BgContainer>
-        </>
+        </SearchConext.Provider>
     );
 };
 

@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
-import { SubTitle } from "./sub_title";
-import { Title } from "./title";
+import React from 'react';
+import styled from 'styled-components';
+import { SubTitle } from './sub_title';
+import { Title } from './title';
 
-import logo2 from "../assets/img/Logo2.svg";
-import nav1 from "../assets/img/nav/1.svg";
-import nav2 from "../assets/img/nav/2.svg";
-import nav3 from "../assets/img/nav/3.svg";
-import nav4 from "../assets/img/nav/4.svg";
-import nav5 from "../assets/img/nav/5.svg";
-import nav6 from "../assets/img/nav/6.svg";
-import nav7 from "../assets/img/nav/7.svg";
+import logo2 from '../assets/img/Logo2.svg';
+import nav1 from '../assets/img/nav/1.svg';
+import nav2 from '../assets/img/nav/2.svg';
+import nav3 from '../assets/img/nav/3.svg';
+import nav4 from '../assets/img/nav/4.svg';
+import nav5 from '../assets/img/nav/5.svg';
+import nav6 from '../assets/img/nav/6.svg';
+import nav7 from '../assets/img/nav/7.svg';
 
 const NavbarStyle = styled.nav<TNavbarProps>`
     background: linear-gradient(180deg, #d5eee2 0%, #7db59a 43.23%);
@@ -28,7 +28,7 @@ const NavbarStyle = styled.nav<TNavbarProps>`
         background: #7db59a;
         width: 256px;
         align-items: flex-start;
-        left: ${(props) => (props.activeBar ? "0" : "-100%")};
+        left: ${(props) => (props.activeBar ? '0' : '-100%')};
     }
 `;
 
@@ -70,14 +70,14 @@ const NavElement = styled.li<INavElementProps>`
     }
 
     &::after {
-        content: "";
+        content: '';
         position: absolute;
         background-color: white;
         height: 40px;
         width: 3px;
         left: -36px;
         bottom: -4px;
-        display: ${(props) => (props.active ? "block" : "none")};
+        display: ${(props) => (props.active ? 'block' : 'none')};
     }
 
     &:last-child {
