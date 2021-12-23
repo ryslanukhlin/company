@@ -101,7 +101,7 @@ const UpdateClaim: React.FC<TPropsUpdateClaim> = ({ token }) => {
                     <Select
                         width="589px"
                         disabled
-                        options={[
+                        RnOptions={[
                             <ClaimType
                                 disabled
                                 type={

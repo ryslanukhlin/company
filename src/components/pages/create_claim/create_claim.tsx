@@ -88,7 +88,7 @@ const CreateClaim: React.FC<TPropsCreateClaim> = ({ token }) => {
                     <Select
                         values={['hard', 'soft', 'troublesh', 'net']}
                         onChange={updateClaim}
-                        options={[
+                        RnOptions={[
                             <ClaimType type="success">Hardware</ClaimType>,
                             <ClaimType type="danger">Software</ClaimType>,
                             <ClaimType type="primary">Troubleshooting</ClaimType>,
