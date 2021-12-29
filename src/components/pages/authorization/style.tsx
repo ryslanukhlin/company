@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { InputIconImg } from '../../input';
 
+import bg from '../../../assets/img/cod_home_section2-1536x14911.png';
+
 export const Wrapper = styled.div`
     display: flex;
     height: calc(100vh - 100px);
@@ -9,22 +11,23 @@ export const Wrapper = styled.div`
         height: calc(100vh - 64px);
     }
 
-    @media (max-height: 500px) {
+    @media (max-height: 660px) {
         height: 100vh;
+    }
+
+    @media (max-height: 460px) {
+        margin-top: 40px;
     }
 `;
 
 export const ContainerImg = styled.div`
     padding: 100px 130px;
     width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(211, 237, 225, 0.969);
+    background: rgba(211, 237, 225, 0.969) url('${bg}') center center no-repeat;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1420px) {
         display: none;
-    }
+    } ;;
 `;
 
 export const ContainerForm = styled.div`
@@ -35,7 +38,7 @@ export const ContainerForm = styled.div`
     width: 50%;
     padding: 100 130px;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1420px) {
         width: 100%;
     }
 
@@ -99,14 +102,14 @@ export const CheckBoxLabel = styled.label`
 `;
 
 export const Footer = styled.div`
-    height: 100px;
+    min-height: 100px;
     background-color: ${(props) => props.theme.colors.bgdark};
 
     @media (max-height: 660px) {
         height: 64px;
     }
 
-    @media (max-height: 500px) {
+    @media (max-height: 650px) {
         display: none;
     }
 `;
@@ -129,8 +132,4 @@ export const HelpText = styled.div`
     text-align: center;
     line-height: 17px;
     color: #2d3436;
-
-    & span {
-        color: #2f80ed;
-    }
 `;

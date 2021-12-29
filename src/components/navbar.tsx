@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SubTitle } from './sub_title';
 import { Title } from './title';
 
-import logo2 from '../assets/img/Logo2.svg';
+import logo2 from '../assets/img/Logo2.png';
 import nav1 from '../assets/img/nav/1.svg';
 import nav2 from '../assets/img/nav/2.svg';
 import nav3 from '../assets/img/nav/3.svg';
@@ -11,6 +11,7 @@ import nav4 from '../assets/img/nav/4.svg';
 import nav5 from '../assets/img/nav/5.svg';
 import nav6 from '../assets/img/nav/6.svg';
 import nav7 from '../assets/img/nav/7.svg';
+import { useNavigate } from 'react-router-dom';
 
 const NavbarStyle = styled.nav<TNavbarProps>`
     background: linear-gradient(180deg, #d5eee2 0%, #7db59a 43.23%);
@@ -23,6 +24,7 @@ const NavbarStyle = styled.nav<TNavbarProps>`
     align-items: center;
     z-index: 2;
     transition: 0.1s all ease-in-out;
+    overflow: auto;
 
     @media (max-width: 998px) {
         background: #7db59a;
@@ -107,10 +109,12 @@ type TNavbarProps = {
 };
 
 const Navbar: React.FC<TNavbarProps> = ({ activeBar }) => {
+    const navigate = useNavigate();
+
     return (
         <NavbarStyle activeBar={activeBar}>
-            <NavBarLogo>
-                <img src={logo2} alt="Logo" />
+            <NavBarLogo onClick={() => navigate('/')}>
+                <img src={logo2} alt="Logo" width="46" />
                 <Title fs="12px">company</Title>
                 <SubTitle fs="9px" mb="47px">
                     slogan

@@ -5,7 +5,21 @@ type propsTitle = {
     fs?: string;
 };
 
-export const Title = styled.h1<propsTitle>`
+export const MainTitle = styled.h1<propsTitle>`
+    color: ${(props) => (props.color ? props.color : 'white')};
+    text-transform: uppercase;
+    font-size: ${(props) => (props.fs ? props.fs : '14px')};
+
+    @media (max-height: 600px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 750px) {
+        font-size: 16px;
+    }
+`;
+
+export const Title = styled.h2<propsTitle>`
     color: ${(props) => (props.color ? props.color : 'white')};
     text-transform: uppercase;
     font-size: ${(props) => (props.fs ? props.fs : '14px')};

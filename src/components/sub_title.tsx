@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 type propsSubTitle = {
     color?: string;
@@ -6,11 +6,11 @@ type propsSubTitle = {
     fs?: string;
 };
 
-export const SubTitle = styled.h2<propsSubTitle>`
-    color: ${(props) => (props.color ? props.color : "white")};
+export const SubTitle = styled.div<propsSubTitle>`
+    color: ${(props) => (props.color ? props.color : 'white')};
     text-transform: uppercase;
-    font-size: ${(props) => (props.fs ? props.fs : "10px")};
-    margin-bottom: ${(props) => (props.mb ? props.mb : "0")};
+    font-size: ${(props) => (props.fs ? props.fs : '10px')};
+    margin-bottom: ${(props) => (props.mb ? props.mb : '0')};
 
     @media (max-height: 600px) {
         margin-bottom: 20px;

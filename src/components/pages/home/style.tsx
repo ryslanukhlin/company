@@ -40,6 +40,7 @@ export const ThStyle = styled.th`
     line-height: 22px;
     color: #2d3436;
     text-align: left;
+    min-width: 100px;
 
     &:first-child {
         padding-left: 24px;

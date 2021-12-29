@@ -14,18 +14,18 @@ import {
 import Input from '../../input';
 import { Label } from '../../label';
 import { FormGroup } from '../../form_group';
-import { Title } from '../../title';
+import { MainTitle, Title } from '../../title';
 import { TRootState } from '../../../store/store';
 import { SubTitle } from '../../sub_title';
 import { Button } from '../../button';
-
-import bg from '../../../assets/img/cod_home_section2-1536x1491 1.png';
-import logo from '../../../assets/img/Logo.svg';
-import logo2 from '../../../assets/img/Logo2.svg';
-import iconMail from '../../../assets/img/iconMail.svg';
-import iconPass from '../../../assets/img/iconPass.svg';
 import { ErrorInputMessage } from '../../input_error';
 import { useNavigate } from 'react-router-dom';
+import Link from '../../link';
+
+import logo from '../../../assets/img/Logo.png';
+import logo2 from '../../../assets/img/Logo2.png';
+import iconMail from '../../../assets/img/iconMail.svg';
+import iconPass from '../../../assets/img/iconPass.svg';
 
 type TProps = {
     loginRequest: typeof loginRequest;
@@ -61,20 +61,18 @@ const Authorization: React.FC<TProps> = ({
     return (
         <>
             <Wrapper>
-                <ContainerImg>
-                    <img style={{ width: '100%', height: '100%' }} src={bg} alt="bg" />
-                </ContainerImg>
+                <ContainerImg />
                 <ContainerForm>
                     <img src={logo} alt="Logo" />
-                    <Title fs="20px" color="#3e9757">
+                    <MainTitle fs="20px" color="#3e9757">
                         company
-                    </Title>
+                    </MainTitle>
                     <SubTitle fs="16px" mb="66px" color="#92E3A9">
                         slogan
                     </SubTitle>
                     <Form width="466px">
                         <FormGroup mb="0px">
-                            <Label>E-MAIL</Label>
+                            <Label htmlFor="email">E-MAIL</Label>
                             <Input
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -82,12 +80,13 @@ const Authorization: React.FC<TProps> = ({
                                 placeholder="Type your e-mail"
                                 icon={iconMail}
                                 error={!!errorLogin}
+                                id="email"
                             />
                             <ErrorInputMessage>{errorLogin}</ErrorInputMessage>
                         </FormGroup>
 
                         <FormGroup mb="0px">
-                            <Label>pASSWORD</Label>
+                            <Label htmlFor="password">pASSWORD</Label>
                             <Input
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -95,6 +94,7 @@ const Authorization: React.FC<TProps> = ({
                                 placeholder="Type your password"
                                 icon={iconPass}
                                 error={!!errorPassword}
+                                id="password"
                             />
                             <ErrorInputMessage>{errorPassword}</ErrorInputMessage>
                         </FormGroup>
@@ -121,14 +121,14 @@ const Authorization: React.FC<TProps> = ({
                         </Button>
 
                         <HelpText>
-                            Not a member? <span>Request registration.</span>
+                            Not a member? <Link to="/auth">Request registration.</Link>
                         </HelpText>
                     </Form>
                 </ContainerForm>
             </Wrapper>
             <Footer>
                 <FooterWrapper>
-                    <img src={logo2} alt="logo" />
+                    <img src={logo2} alt="logo" width="46" />
                     <Title>company</Title>
                     <SubTitle>slogan</SubTitle>
                 </FooterWrapper>
